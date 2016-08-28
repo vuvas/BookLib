@@ -18,25 +18,86 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("Public Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Public Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
 
 
             </div>
-            <div class="navbar-collapse collapse">
+            @*<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
+            </div>*@
+            <div class="nav navbar-nav navbar-left">
+                @Html.ActionLink("Public Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Register", "Register", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Public Library</p>
-        </footer>
+<div class="container body-content">
+    <p></p>
+    <div class="jumbotron">
+        <h1>Public Library</h1>
+        <p class="lead"> Search for books you love to read.</p>
     </div>
+    <div class="row">
+        <div class="col-lg-8">
+
+            @RenderBody()
+
+        </div>
+        <div class="col-lg-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div class="media-body">
+                        <h3 class="media-heading">Long Book Title</h3>
+                        <span class="pull-left">Book Publisher</span>
+                        <span class="pull-right">Authors ,Authors</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="media-body">
+                        <h3 class="media-heading">Dapibus ac facilisis in</h3>
+                        <span class="pull-left">Book Publisher</span>
+                        <span class="pull-right">Authors ,Authors</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="media-body">
+                        <h3 class="media-heading">Morbi leo risus</h3>
+                        <span class="pull-left">Book Publisher</span>
+                        <span class="pull-right">Authors ,Authors</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="media-body">
+                        <h3 class="media-heading">Porta ac consectetur ac</h3>
+                        <span class="pull-left">Book Publisher</span>
+                        <span class="pull-right">Authors ,Authors</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="media-body">
+                        <h3 class="media-heading">Vestibulum at eros</h3>
+                        <span class="pull-left">Book Publisher</span>
+                        <span class="pull-right">Authors ,Authors</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </div>
+
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Public Library</p>
+    </footer>
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
