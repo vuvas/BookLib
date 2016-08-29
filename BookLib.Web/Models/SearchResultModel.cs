@@ -14,7 +14,7 @@ namespace BookLib.Web.Models
 
     public class SearchResultViewModel
     {
-        public List<SearchResultModel> SearchResults { get; set; }
+        public IEnumerable<Book> SearchResults { get; set; }
         public List<SelectListItem> FilterTypes { get; set; }
 
         public SelectListItem SelectedFilterType { get; set; }

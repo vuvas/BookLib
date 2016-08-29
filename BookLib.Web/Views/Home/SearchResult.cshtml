@@ -13,17 +13,17 @@
             foreach (var m in Model.SearchResults)
             {
                 <div class="row">
-                    <div class="media  col-lg-5 col-lg-offset-1">
-                        <div class="row media-body">
+                    <div class="media">
+                        <div class=" media-body">
                             <h3 class="media-heading">@m.Title</h3>
-                            <span class="col-md-8 pull-left">
+                            <span class="pull-left">
                                 <strong>Publisher:</strong> [@m.Publisher]
                                 <br />
                                 <strong>Author:</strong> @m.Authors
                                 <p><strong>Description:</strong> @m.Description</p>
                             </span>
 
-                            <span class="col-md-4 pull-right">
+                            <span class=" pull-right">
                                 <input type="submit" value="Place Demand" class="form-control btn btn-primary" />
                             </span>
                             

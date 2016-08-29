@@ -7,9 +7,12 @@ namespace BookLib.Web.Controllers
     public class HomeController : Controller
     {
         public FakeService FakeService = new FakeService();
+        static readonly IApiService ApiService = new ApiService();
 
         public ActionResult Index()
         {
+         
+            //ApiService.PlaceDemand("57c3f858eeb574254ab8080d", "57c3f858eeb574254ab8080c");
             var model = FakeService.GetSearchParameters();
             return View(model);
         }
@@ -26,14 +29,16 @@ namespace BookLib.Web.Controllers
         [HttpPost]
         public ActionResult SearchResult(string selectedFilterType, string searchKey)
         {
+
             var model = new SearchResultViewModel
             {
-                SearchResults = FakeService.GetFakeSearchResults(),
+                SearchResults = ApiService.SeachBooks(searchKey,selectedFilterType),
                 FilterTypes = FakeService.GetFilterTypes(),
                 SearchKey = searchKey
             };
 
-            return View(model);
+            //return View(model);
+            return PartialView("SearchResult", model);
         }
 
         [HttpGet]
