@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using BookLib.Web.Models;
 using BookLib.Web.Service;
 
@@ -6,55 +7,45 @@ namespace BookLib.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public FakeService FakeService = new FakeService();
-        static readonly IApiService ApiService = new ApiService();
-
+        private static readonly IApiService ApiService = new ApiService();
+       
+        
         public ActionResult Index()
         {
-         
-            //ApiService.PlaceDemand("57c3f858eeb574254ab8080d", "57c3f858eeb574254ab8080c");
-            var model = FakeService.GetSearchParameters();
+            var model = new SearchResultViewModel
+            {
+                SearchResults = new List<Book>(),
+                SearchKey = "",
+                FilterTypes = ApiService.GetFilterTypes()
+            };
             return View(model);
         }
         [HttpPost]
-        public ActionResult Register(RegisterViewModel registerModel)
+        public ActionResult Index(string selectedFilterType, string searchKey)
         {
-            return View();
-        }
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult SearchResult(string selectedFilterType, string searchKey)
-        {
-
+            var usr = Session["Username"]??"";
             var model = new SearchResultViewModel
             {
-                SearchResults = ApiService.SeachBooks(searchKey,selectedFilterType),
-                FilterTypes = FakeService.GetFilterTypes(),
-                SearchKey = searchKey
+                SearchResults = ApiService.SeachBooks(searchKey, selectedFilterType),
+                FilterTypes = ApiService.GetFilterTypes(),
+                SearchKey = searchKey,
+                Username = usr.ToString()
+
             };
 
-            //return View(model);
-            return PartialView("SearchResult", model);
+            return View(model);
         }
+       
 
-        [HttpGet]
-        public ActionResult Login()
+        public ActionResult PlaceDemand(string bookID)
         {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(LoginViewModel loginModel,string returnUrl)
-        {
-            return View();
-        }
+            var user = ApiService.GetUserByUsername(Session["Username"].ToString());
+            if (user != null && bookID != null)
+            {
+                ApiService.PlaceDemand(user.Id, bookID);
+            }
 
-        public ActionResult PlaceDemand(string book)
-        {
-            ViewBag.Book = book;
+            ViewBag.Book = bookID;
             return View();
         }
 

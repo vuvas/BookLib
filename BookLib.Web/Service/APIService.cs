@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
+using System.Web.Mvc;
 using BookLib.Web.Models;
 using RestSharp;
 
@@ -39,6 +40,26 @@ namespace BookLib.Web.Service
             }
            
         }
+
+        public List<SelectListItem> GetFilterTypes()
+        {
+            var request = new RestRequest("api/books/FilterTypes", Method.GET) { RequestFormat = DataFormat.Json };
+            try
+            {
+                var response = _client.Execute<List<SelectListItem>>(request);
+
+                if (response.Data == null)
+                    throw new Exception(response.ErrorMessage);
+
+                return response.Data;
+            }
+            catch (Exception e)
+            {
+                //TODO: LOGGING
+                throw e;
+            }
+        }
+
         public  IEnumerable<Book> SeachBooks(string keyword, string searchType = null)
         {
             var request = new RestRequest("api/books/search", Method.GET) { RequestFormat = DataFormat.Json };
@@ -107,16 +128,12 @@ namespace BookLib.Web.Service
         #region POST METHOD
         public Result PlaceDemand(string userID, string bookID)
         {
-            var request = new RestRequest("api/books/PlaceDemand", Method.POST) { RequestFormat = DataFormat.Json };
-
-            request.AddUrlSegment("userID", userID);
-            request.AddUrlSegment("bookID", bookID);
+            var request = new RestRequest(string.Format(@"api/books/PlaceDemand?userID={0}&bookID={1}",userID,bookID), Method.POST);
             
-
             try
             {
                 var response = _client.Execute<Result>(request);
-                if (response.StatusCode != HttpStatusCode.Created)
+                if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception(response.ErrorMessage); 
                 
                 return response.Data;
@@ -132,14 +149,13 @@ namespace BookLib.Web.Service
 
         public Result SaveUser(string username, string password)
         {
-            var request = new RestRequest("api/Account/SaveUser", Method.POST) { RequestFormat = DataFormat.Json };
-            request.AddBody(username);
-            request.AddBody(password);
+            var request = new RestRequest(string.Format("api/Account/SaveUser?username={0}&password={1}",username,password), Method.POST) { RequestFormat = DataFormat.Json };
+
 
             try
             {
                 var response = _client.Execute<Result>(request);
-                if (response.StatusCode != HttpStatusCode.Created)
+                if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception(response.ErrorMessage);
 
                 return response.Data;
@@ -154,14 +170,13 @@ namespace BookLib.Web.Service
 
         public Result AuthenticateUser(string username, string password)
         {
-            var request = new RestRequest("api/Account/AuthenticateUser", Method.POST) { RequestFormat = DataFormat.Json };
-            request.AddBody(username);
-            request.AddBody(password);
+            var request = new RestRequest(string.Format("api/Account/AuthenticateUser?username={0}&password={1}", username, password), Method.POST) { RequestFormat = DataFormat.Json };
+
 
             try
             {
                 var response = _client.Execute<Result>(request);
-                if (response.StatusCode != HttpStatusCode.Created)
+                if (response.StatusCode != HttpStatusCode.OK)
                     throw new Exception(response.ErrorMessage);
 
                 return response.Data;

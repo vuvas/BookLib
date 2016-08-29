@@ -1,53 +1,69 @@
-﻿@model BookLib.Web.Models.SearchModel
+﻿@model BookLib.Web.Models.SearchResultViewModel
 ﻿@{
     ViewBag.Title = "Home";
 }
 
 <div class="row">
-    <div class="col-md-8">
-        @using (Html.BeginForm("SearchResult", "Home", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+    <div class="col-md-12">
+        @*@using (Html.BeginForm("SearchResult", "Home", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))*@
+        @using (Html.BeginForm())
         {
 
             <div class="input-group">
-                @*<div class="input-group-btn">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Filter <span class="caret"></span>
-                        </button>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Title</a></li>
-                            <li><a href="#">Publisher</a></li>
-                            <li><a href="#">Author</a></li>
-                        </ul>
-                    </div>
-                </div>*@
-                @Html.DropDownListFor(model => model.SelectedFilterType, Model.FilterType, "-- Select Filter Type --",new {@class = "form-control"})
+                @Html.DropDownListFor(model => model.SelectedFilterType, Model.FilterTypes, "-- Select Filter Type --", new { @class = "form-control" })
                 @Html.TextBoxFor(m => m.SearchKey, new {@class = "form-control"})
                 <div class="input-group-btn">
                     <input type="submit" value="SEARCH BOOK LIBRARY" class="btn btn-primary"/>
                 </div>
 
             </div>
-            <hr/>
 
         }
-
-    </div>
-
-    <div class="col-lg-4">
-        <ul class="list-group">
-            @foreach (var m in Model.TopDemandBooks)
-            {
-                <li class="list-group-item">
-                    <div class="media-body">
-                        <h3 class="media-heading">@m.Title</h3>
-                        <span class="pull-left">@m.Publisher</span>
-                        <span class="pull-right">@m.Authors</span>
-                    </div>
-                </li>
+            @{
+                if (@Model.SearchResults.Any())
+                {
+                    <hr/>
+                    <blockquote class="text-warning">
+                        <h5>@Model.SearchResults.Count() items found for <strong>@Model.SearchKey</strong></h5>
+                    </blockquote>
+                    <hr/>
+                }
             }
-        </ul>
+
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("PlaceDemand", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    foreach (var m in Model.SearchResults)
+                    {
+                        <div class="row">
+                            <div class="media">
+                                <div class=" media-body">
+                                    <h3 class="media-heading">@m.Title</h3>
+                                    <span class="pull-left">
+                                        <strong>Publisher:</strong> [@m.Publisher]
+                                        <br />
+                                        <strong>Author:</strong> @m.Authors
+                                        <p><strong>Description:</strong> @m.Description</p>
+                                    </span>
+
+                                    <span class=" pull-right">
+                                        <input type="submit" value="Place Demand" class="form-control btn btn-primary" />
+                                    </span>
+
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+
+
+
     </div>
 </div>
-@*  *@
+

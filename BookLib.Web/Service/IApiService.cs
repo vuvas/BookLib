@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using BookLib.Web.Models;
 
 namespace BookLib.Web.Service
@@ -8,6 +9,7 @@ namespace BookLib.Web.Service
         #region GET METHOD
 
         IEnumerable<Book> GetAll();
+        List<SelectListItem> GetFilterTypes();
         IEnumerable<Book> SeachBooks(string keyword, string searchType = null);
         User GetUser(string id);
         User GetUserByUsername(string username);

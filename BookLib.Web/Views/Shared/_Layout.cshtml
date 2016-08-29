@@ -17,23 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
-                @*@Html.ActionLink("Public Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-
-
             </div>
-            @*<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                </ul>
-            </div>*@
             <div class="nav navbar-nav navbar-left">
                 @Html.ActionLink("Public Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-
+            
             <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Register", "Register", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                <li>@Html.ActionLink("Log in", "Login", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
             </ul>
         </div>
     </div>
@@ -52,7 +43,7 @@
     </div>
 
     <hr/>
-    <footer>
+    <footer class="navbar-fixed-bottom text-center">
         <p>&copy; @DateTime.Now.Year - Public Library</p>
     </footer>
 </div>

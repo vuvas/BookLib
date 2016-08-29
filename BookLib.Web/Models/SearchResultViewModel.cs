@@ -3,15 +3,6 @@ using System.Web.Mvc;
 
 namespace BookLib.Web.Models
 {
-    public class SearchResultModel
-    {
-        public string Title { get; set; }
-        public string Publisher { get; set; }
-        public string Description { get; set; }
-        public string Authors  { get; set; }
-        
-    }
-
     public class SearchResultViewModel
     {
         public IEnumerable<Book> SearchResults { get; set; }
@@ -19,6 +10,8 @@ namespace BookLib.Web.Models
 
         public SelectListItem SelectedFilterType { get; set; }
         public string SearchKey { get; set; }
+        public string Username { get; set; }
+        public string UserID { get; set; }
 
     }
 }
