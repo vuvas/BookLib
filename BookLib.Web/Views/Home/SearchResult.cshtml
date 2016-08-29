@@ -1,0 +1,32 @@
+﻿@model BookLib.Web.Models.SearchResultViewModel
+﻿@{
+    ViewBag.Title = "Search Result Page";
+}
+<blockquote class="text-warning">
+    <h4>Search Result for <strong>@Model.SearchKey</strong> </h4>
+    @Html.DropDownListFor(model => model.SelectedFilterType, Model.FilterTypes, "-- Select Filter Type --", new { @class = "form-control" })
+</blockquote>
+<hr/>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @foreach (var m in Model.SearchResults)
+        {
+            <div class="row">
+                <div class="media col-lg-5">
+                    <div class="media-body">
+                        <h3 class="media-heading">@m.Title</h3>
+                        <span class="pull-left"> [@m.Publisher]</span>
+                        <span class="pull-right">By: @m.Authors</span>
+                        <br/>
+                        <p>@m.Description</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        }
+
+
+    </div>
+</div>
