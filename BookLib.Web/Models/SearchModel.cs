@@ -9,5 +9,6 @@ namespace BookLib.Web.Models
         public SelectListItem SelectedFilterType { get; set; }
         public string SearchKey { get; set; }
         public List<SearchResultModel> TopDemandBooks { get; set; }
+        public List<SearchResultModel> SearchResults { get; set; }
     }
 }

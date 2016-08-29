@@ -12,7 +12,8 @@ namespace BookLib.Web.Service
             {
                 FilterType = GetFilterTypes(),
                 SearchKey = "",
-                TopDemandBooks = GetFakeTopDemandedBooks()
+                TopDemandBooks = GetFakeTopDemandedBooks(),
+                SearchResults = new List<SearchResultModel>()
             };
             
         }

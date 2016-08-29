@@ -23,6 +23,7 @@ namespace BookLib.Web.Controllers
         {
             return View();
         }
+        [HttpPost]
         public ActionResult SearchResult(string selectedFilterType, string searchKey)
         {
             var model = new SearchResultViewModel
@@ -31,7 +32,6 @@ namespace BookLib.Web.Controllers
                 FilterTypes = FakeService.GetFilterTypes(),
                 SearchKey = searchKey
             };
-            
 
             return View(model);
         }
@@ -44,6 +44,12 @@ namespace BookLib.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginModel,string returnUrl)
         {
+            return View();
+        }
+
+        public ActionResult PlaceDemand(string book)
+        {
+            ViewBag.Book = book;
             return View();
         }
 

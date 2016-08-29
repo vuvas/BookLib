@@ -119,6 +119,7 @@
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ApiService.cs" />
     <Compile Include="Service\FakeService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\SearchResult.cshtml" />
+    <None Include="Views\Home\PlaceDemand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
